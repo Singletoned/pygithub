@@ -27,3 +27,10 @@ class User(object):
     def __init__(self, data):
         for key in self._keys:
             setattr(self, key, data[key])
+    @property
+    def repos(self):
+        response = requests.get(
+            'https://api.github.com/user/repos')
+        content = response.content
+        data = json.loads(content)
+        return data

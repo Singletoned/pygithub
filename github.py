@@ -22,12 +22,13 @@ class Github(object):
         return user
 
 
-class User(object):
-    _keys = ['name', 'email', 'login']
-
+class BaseModel(object):
     def __init__(self, data):
         for key in self._keys:
             setattr(self, key, data[key])
+
+class User(BaseModel):
+    _keys = ['name', 'email', 'login']
 
     @property
     def repos(self):
@@ -45,9 +46,5 @@ class User(object):
         return Repo(data)
 
 
-class Repo(object):
+class Repo(BaseModel):
     _keys = ['name', 'git_url', 'html_url']
-
-    def __init__(self, data):
-        for key in self._keys:
-            setattr(self, key, data[key])

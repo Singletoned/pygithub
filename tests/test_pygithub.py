@@ -4,8 +4,12 @@ import os
 
 import github
 
+import mock_data
+
 cfg = open(os.path.expanduser('~/.github')).read()
 username, password = cfg.split(':', 1)
+
+github.requests = mock_data.MockRequests
 gh = github.Github(username, password)
 
 def test_user():

@@ -17,5 +17,5 @@ def test_user():
 def test_repos():
     user = gh.user
     repos = user.repos
-    repo_names = [r.name for r in repos]
+    repo_names = [r['name'] for r in repos]
     assert "testino" in repo_names

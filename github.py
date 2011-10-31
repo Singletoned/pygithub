@@ -22,7 +22,7 @@ class Github(object):
         return user
 
 class User(object):
-    _keys = ['name', 'email']
+    _keys = ['name', 'email', 'login']
 
     def __init__(self, data):
         for key in self._keys:
@@ -30,7 +30,7 @@ class User(object):
     @property
     def repos(self):
         response = requests.get(
-            'https://api.github.com/user/repos')
+            'https://api.github.com/users/%s/repos' % self.login)
         content = response.content
         data = json.loads(content)
         return data

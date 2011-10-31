@@ -21,12 +21,14 @@ class Github(object):
         user = User(data)
         return user
 
+
 class User(object):
     _keys = ['name', 'email', 'login']
 
     def __init__(self, data):
         for key in self._keys:
             setattr(self, key, data[key])
+
     @property
     def repos(self):
         response = requests.get(
@@ -41,6 +43,7 @@ class User(object):
         content = response.content
         data = json.loads(content)
         return Repo(data)
+
 
 class Repo(object):
     _keys = ['name', 'git_url', 'html_url']

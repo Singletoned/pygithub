@@ -18,21 +18,19 @@ class Github(object):
         response = requests.get('https://api.github.com/users/%s' % self.username)
         content = response.content
         data = json.loads(content)
-        user = User(data, self)
+        user = User(data)
         return user
 
 class User(object):
     _keys = ['name', 'email']
 
-    def __init__(self, data, gh):
-        self.gh = gh
+    def __init__(self, data):
         for key in self._keys:
             setattr(self, key, data[key])
     @property
     def repos(self):
         response = requests.get(
-            'https://api.github.com/user/repos',
-            auth=(self.gh.username, self.gh.password))
+            'https://api.github.com/user/repos')
         content = response.content
         data = json.loads(content)
         return data

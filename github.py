@@ -3,19 +3,22 @@
 import json
 
 import requests
+import werkzeug
 
+url = werkzeug.Href("https://api.github.com/")
 
 class Github(object):
     def __init__(self, username, password):
         self.username = username
         self.password = password
         response = requests.get(
-            'https://api.github.com/',
+            url(),
             auth=(self.username, self.password))
 
     @property
     def user(self):
-        response = requests.get('https://api.github.com/users/%s' % self.username)
+        response = requests.get(
+            url("users", self.username))
         content = response.content
         data = json.loads(content)
         user = User(data)
@@ -33,14 +36,14 @@ class User(BaseModel):
     @property
     def repos(self):
         response = requests.get(
-            'https://api.github.com/users/%s/repos' % self.login)
+            url("users", self.login, "repos"))
         content = response.content
         data = json.loads(content)
         return data
 
     def get_repo(self, name):
         response = requests.get(
-            'https://api.github.com/repos/%s/%s' % (self.login, name))
+            url("repos", self.login, name))
         content = response.content
         data = json.loads(content)
         return Repo(data)

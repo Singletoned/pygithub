@@ -34,3 +34,17 @@ class User(object):
         content = response.content
         data = json.loads(content)
         return data
+
+    def get_repo(self, name):
+        response = requests.get(
+            'https://api.github.com/repos/%s/%s' % (self.login, name))
+        content = response.content
+        data = json.loads(content)
+        return Repo(data)
+
+class Repo(object):
+    _keys = ['name', 'git_url', 'html_url']
+
+    def __init__(self, data):
+        for key in self._keys:
+            setattr(self, key, data[key])

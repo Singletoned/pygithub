@@ -27,6 +27,7 @@ class Github(object):
 
 class BaseModel(object):
     def __init__(self, data):
+        self._data = data
         for key in self._keys:
             setattr(self, key, data[key])
 

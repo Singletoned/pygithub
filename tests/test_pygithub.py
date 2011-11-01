@@ -17,6 +17,7 @@ def test_user():
     assert user.name == "Ed Singleton"
     assert user.email == "singletoned@gmail.com"
     assert isinstance(user, github.User)
+    assert user._data['name'] == "Ed Singleton"
 
 def test_repos():
     user = gh.user
@@ -30,6 +31,7 @@ def test_repos():
     assert repo.html_url == u'https://github.com/Singletoned/pygithub'
     assert repo.git_url == u'git://github.com/Singletoned/pygithub.git'
     assert isinstance(repo, github.Repo)
+    assert repo._data['language'] == "Python"
 
 def test_issues():
     repo = gh.user.get_repo('pygithub')
@@ -39,3 +41,4 @@ def test_issues():
     issue = repo.get_issue(2)
     assert isinstance(issue, github.Issue)
     assert issue.title == "Test Issue"
+    assert issue._data['body'] == "A test issue for testing the API"

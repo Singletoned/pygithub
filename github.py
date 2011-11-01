@@ -36,6 +36,25 @@ class BaseModel(object):
         for key in self._keys:
             setattr(self, key, data[key])
 
+
+class UserOwnedModel(BaseModel):
+    @property
+    def user(self):
+        url = make_url("users", self.owner['login'])
+        data = _get_data(url)
+        user = User(data)
+        return user
+
+
+class UserLinkedModel(BaseModel):
+    @property
+    def user(self):
+        url = make_url("users", self._data['user']['login'])
+        data = _get_data(url)
+        user = User(data)
+        return user
+
+
 class User(BaseModel):
     _keys = ['name', 'email', 'login']
 
@@ -57,15 +76,8 @@ class User(BaseModel):
         return Repo(data)
 
 
-class Repo(BaseModel):
+class Repo(UserOwnedModel):
     _keys = ['name', 'git_url', 'html_url', 'owner']
-
-    @property
-    def user(self):
-        url = make_url("users", self.owner['login'])
-        data = _get_data(url)
-        user = User(data)
-        return user
 
     @property
     def issues(self):
@@ -91,23 +103,9 @@ class Repo(BaseModel):
         return Pull(data)
 
 
-class Issue(BaseModel):
+class Issue(UserLinkedModel):
     _keys = ['title']
 
-    @property
-    def user(self):
-        url = make_url("users", self._data['user']['login'])
-        data = _get_data(url)
-        user = User(data)
-        return user
 
-
-class Pull(BaseModel):
+class Pull(UserLinkedModel):
     _keys = ['title']
-
-    @property
-    def user(self):
-        url = make_url("users", self._data['user']['login'])
-        data = _get_data(url)
-        user = User(data)
-        return user

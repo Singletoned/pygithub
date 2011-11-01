@@ -30,3 +30,8 @@ def test_repos():
     assert repo.html_url == u'https://github.com/Singletoned/pygithub'
     assert repo.git_url == u'git://github.com/Singletoned/pygithub.git'
     assert isinstance(repo, github.Repo)
+
+def test_issues():
+    repo = gh.user.get_repo('pygithub')
+    issue_titles = [i['title'] for i in repo.issues]
+    assert "Test Issue" in issue_titles

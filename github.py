@@ -65,3 +65,11 @@ class Repo(BaseModel):
         data = json.loads(content)
         user = User(data)
         return user
+
+    @property
+    def issues(self):
+        response = requests.get(
+            url("repos", self.user.login, self.name, "issues"))
+        content = response.content
+        data = json.loads(content)
+        return data

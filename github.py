@@ -95,7 +95,8 @@ class Repo(UserOwnedModel):
     def pulls(self):
         url = make_url("repos", self.user.login, self.name, "pulls")
         data = _get_data(url)
-        return data
+        pulls = [Pull(p) for p in data]
+        return pulls
 
     def get_pull(self, number):
         url = make_url("repos", self.user.login, self.name, "pulls", number)

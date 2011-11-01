@@ -46,7 +46,7 @@ def test_issues():
 
 def test_pulls():
     repo = gh.user.get_repo('pygithub')
-    pull_titles = [p['title'] for p in repo.pulls]
+    pull_titles = [p.title for p in repo.pulls]
     assert "Test Pull Request" in pull_titles
 
     pull = repo.get_pull(3)

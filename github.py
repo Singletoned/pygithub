@@ -65,48 +65,72 @@ class User(BaseModel):
 
     @property
     def repos(self):
-        url = make_url("users", self.login, "repos")
-        data = _get_data(url)
-        repos = [Repo(r) for r in data]
-        return repos
+        return Repo.get_all(self)
 
     def get_repo(self, name):
-        url = make_url("repos", self.login, name)
-        data = _get_data(url)
-        return Repo(data)
+        return Repo.get(self, name)
 
 
 class Repo(UserOwnedModel):
     _keys = ['name', 'git_url', 'html_url', 'owner']
 
+    @classmethod
+    def get_all(cls, user):
+        url = make_url("users", user.login, "repos")
+        data = _get_data(url)
+        repos = [cls(r) for r in data]
+        return repos
+
+    @classmethod
+    def get(cls, user, name):
+        url = make_url("repos", user.login, name)
+        data = _get_data(url)
+        return cls(data)
+
     @property
     def issues(self):
-        url = make_url("repos", self.user.login, self.name, "issues")
-        data = _get_data(url)
-        issues = [Issue(i) for i in data]
-        return issues
+        return Issue.get_all(self)
 
     def get_issue(self, number):
-        url = make_url("repos", self.user.login, self.name, "issues", number)
-        data = _get_data(url)
-        return Issue(data)
+        return Issue.get(self, number)
 
     @property
     def pulls(self):
-        url = make_url("repos", self.user.login, self.name, "pulls")
-        data = _get_data(url)
-        pulls = [Pull(p) for p in data]
-        return pulls
+        return Pull.get_all(self)
 
     def get_pull(self, number):
-        url = make_url("repos", self.user.login, self.name, "pulls", number)
-        data = _get_data(url)
-        return Pull(data)
+        return Pull.get(self, number)
 
 
 class Issue(UserLinkedModel):
     _keys = ['title']
 
+    @classmethod
+    def get_all(cls, repo):
+        url = make_url("repos", repo.user.login, repo.name, "issues")
+        data = _get_data(url)
+        issues = [cls(i) for i in data]
+        return issues
+
+    @classmethod
+    def get(cls, repo, number):
+        url = make_url("repos", repo.user.login, repo.name, "issues", number)
+        data = _get_data(url)
+        return cls(data)
+
 
 class Pull(UserLinkedModel):
     _keys = ['title']
+
+    @classmethod
+    def get_all(cls, repo):
+        url = make_url("repos", repo.user.login, repo.name, "pulls")
+        data = _get_data(url)
+        pulls = [cls(p) for p in data]
+        return pulls
+
+    @classmethod
+    def get(cls, repo, number):
+        url = make_url("repos", repo.user.login, repo.name, "pulls", number)
+        data = _get_data(url)
+        return cls(data)

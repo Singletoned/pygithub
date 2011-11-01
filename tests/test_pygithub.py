@@ -22,7 +22,7 @@ def test_user():
 def test_repos():
     user = gh.user
     repos = user.repos
-    repo_names = [r['name'] for r in repos]
+    repo_names = [r.name for r in repos]
     assert "pygithub" in repo_names
 
     repo = user.get_repo('pygithub')

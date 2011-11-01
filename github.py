@@ -78,6 +78,11 @@ class Repo(BaseModel):
         url = make_url("repos", self.user.login, self.name, "issues", number)
         data = _get_data(url)
         return Issue(data)
+
+    @property
+    def pulls(self):
+        url = make_url("repos", self.user.login, self.name, "pulls")
+        data = _get_data(url)
         return data
 
 

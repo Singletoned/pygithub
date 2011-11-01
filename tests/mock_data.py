@@ -99,7 +99,41 @@ responses = {
         "url": "https://api.github.com/repos/Singletoned/pygithub/issues/2",
         "comments": 0,
         "title": "Test Issue",
-        "id": 2103140}'''}
+        "id": 2103140}''',
+    "https://api.github.com/repos/Singletoned/pygithub/pulls": '''[{
+        "created_at": "2011-11-01T13:21:55Z",
+        "title": "Test Pull Request",
+        "patch_url": "https://github.com/Singletoned/pygithub/pull/3.patch",
+        "html_url": "https://github.com/Singletoned/pygithub/pull/3",
+        "_links": {
+          "comments": {
+            "href": "https://api.github.com/repos/Singletoned/pygithub/issues/3/comments"
+          },
+          "review_comments": {
+            "href": "https://api.github.com/repos/Singletoned/pygithub/pulls/3/comments"
+          },
+          "html": {
+            "href": "https://github.com/Singletoned/pygithub/pull/3"
+          },
+          "self": {
+            "href": "https://api.github.com/repos/Singletoned/pygithub/pulls/3"
+          }
+        },
+        "number": 3,
+        "state": "open",
+        "merged_at": null,
+        "user": {
+          "login": "Singletoned",
+          "id": 6284,
+          "url": "https://api.github.com/users/Singletoned"
+        },
+        "updated_at": "2011-11-01T13:30:55Z",
+        "closed_at": null,
+        "issue_url": "https://github.com/Singletoned/pygithub/issues/3",
+        "id": 452102,
+        "body": "This is a test Pull Request",
+        "diff_url": "https://github.com/Singletoned/pygithub/pull/3.diff",
+        "url": "https://api.github.com/repos/Singletoned/pygithub/pulls/3"}]'''}
 
 class MockRequest(object):
     def __init__(self, data):

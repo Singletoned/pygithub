@@ -43,3 +43,8 @@ def test_issues():
     assert issue.title == "Test Issue"
     assert issue._data['body'] == "A test issue for testing the API"
     assert issue.user == gh.user
+
+def test_pulls():
+    repo = gh.user.get_repo('pygithub')
+    pull_titles = [p['title'] for p in repo.pulls]
+    assert "Test Pull Request" in pull_titles

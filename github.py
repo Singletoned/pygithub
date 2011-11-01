@@ -50,4 +50,13 @@ class User(BaseModel):
 
 
 class Repo(BaseModel):
-    _keys = ['name', 'git_url', 'html_url']
+    _keys = ['name', 'git_url', 'html_url', 'owner']
+
+    @property
+    def user(self):
+        response = requests.get(
+            url("users", self.owner['login']))
+        content = response.content
+        data = json.loads(content)
+        user = User(data)
+        return user

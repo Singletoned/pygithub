@@ -25,6 +25,7 @@ def test_repos():
     assert "pygithub" in repo_names
 
     repo = user.get_repo('pygithub')
+    assert repo.user
     assert repo.name == u"pygithub"
     assert repo.html_url == u'https://github.com/Singletoned/pygithub'
     assert repo.git_url == u'git://github.com/Singletoned/pygithub.git'

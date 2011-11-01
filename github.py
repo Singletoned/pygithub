@@ -86,3 +86,12 @@ class Repo(BaseModel):
 
 class Issue(BaseModel):
     _keys = ['title']
+
+    @property
+    def user(self):
+        response = requests.get(
+            url("users", self._data['user']['login']))
+        content = response.content
+        data = json.loads(content)
+        user = User(data)
+        return user

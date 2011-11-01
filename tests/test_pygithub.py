@@ -42,3 +42,4 @@ def test_issues():
     assert isinstance(issue, github.Issue)
     assert issue.title == "Test Issue"
     assert issue._data['body'] == "A test issue for testing the API"
+    assert issue.user == gh.user

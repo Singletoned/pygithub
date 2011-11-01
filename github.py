@@ -7,6 +7,13 @@ import werkzeug
 
 make_url = werkzeug.Href("https://api.github.com/")
 
+def _get_data(api_url):
+    response = requests.get(api_url)
+    content = response.content
+    data = json.loads(content)
+    return data
+
+
 class Github(object):
     def __init__(self, username, password):
         self.username = username
@@ -17,10 +24,8 @@ class Github(object):
 
     @property
     def user(self):
-        response = requests.get(
-            make_url("users", self.username))
-        content = response.content
-        data = json.loads(content)
+        url = make_url("users", self.username)
+        data = _get_data(url)
         user = User(data)
         return user
 
@@ -41,18 +46,14 @@ class User(BaseModel):
 
     @property
     def repos(self):
-        response = requests.get(
-            make_url("users", self.login, "repos"))
-        content = response.content
-        data = json.loads(content)
+        url = make_url("users", self.login, "repos")
+        data = _get_data(url)
         repos = [Repo(r) for r in data]
         return repos
 
     def get_repo(self, name):
-        response = requests.get(
-            make_url("repos", self.login, name))
-        content = response.content
-        data = json.loads(content)
+        url = make_url("repos", self.login, name)
+        data = _get_data(url)
         return Repo(data)
 
 
@@ -61,27 +62,21 @@ class Repo(BaseModel):
 
     @property
     def user(self):
-        response = requests.get(
-            make_url("users", self.owner['login']))
-        content = response.content
-        data = json.loads(content)
+        url = make_url("users", self.owner['login'])
+        data = _get_data(url)
         user = User(data)
         return user
 
     @property
     def issues(self):
-        response = requests.get(
-            make_url("repos", self.user.login, self.name, "issues"))
-        content = response.content
-        data = json.loads(content)
+        url = make_url("repos", self.user.login, self.name, "issues")
+        data = _get_data(url)
         issues = [Issue(i) for i in data]
         return issues
 
     def get_issue(self, number):
-        response = requests.get(
-            make_url("repos", self.user.login, self.name, "issues", number))
-        content = response.content
-        data = json.loads(content)
+        url = make_url("repos", self.user.login, self.name, "issues", number)
+        data = _get_data(url)
         return Issue(data)
         return data
 
@@ -91,9 +86,7 @@ class Issue(BaseModel):
 
     @property
     def user(self):
-        response = requests.get(
-            make_url("users", self._data['user']['login']))
-        content = response.content
-        data = json.loads(content)
+        url = make_url("users", self._data['user']['login'])
+        data = _get_data(url)
         user = User(data)
         return user

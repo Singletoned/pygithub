@@ -35,3 +35,7 @@ def test_issues():
     repo = gh.user.get_repo('pygithub')
     issue_titles = [i['title'] for i in repo.issues]
     assert "Test Issue" in issue_titles
+
+    issue = repo.get_issue(2)
+    assert isinstance(issue, github.Issue)
+    assert issue.title == "Test Issue"

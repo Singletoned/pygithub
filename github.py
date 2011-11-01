@@ -73,3 +73,15 @@ class Repo(BaseModel):
         content = response.content
         data = json.loads(content)
         return data
+
+    def get_issue(self, number):
+        response = requests.get(
+            url("repos", self.user.login, self.name, "issues", number))
+        content = response.content
+        data = json.loads(content)
+        return Issue(data)
+        return data
+
+
+class Issue(BaseModel):
+    _keys = ['title']

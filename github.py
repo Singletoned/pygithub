@@ -104,3 +104,10 @@ class Issue(BaseModel):
 
 class Pull(BaseModel):
     _keys = ['title']
+
+    @property
+    def user(self):
+        url = make_url("users", self._data['user']['login'])
+        data = _get_data(url)
+        user = User(data)
+        return user

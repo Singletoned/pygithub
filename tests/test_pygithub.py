@@ -53,3 +53,4 @@ def test_pulls():
     assert isinstance(pull, github.Pull)
     assert pull.title == "Test Pull Request"
     assert pull._data['body'] == "This is a test Pull Request"
+    assert pull.user == gh.user

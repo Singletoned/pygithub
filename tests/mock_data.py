@@ -133,7 +133,117 @@ responses = {
         "id": 452102,
         "body": "This is a test Pull Request",
         "diff_url": "https://github.com/Singletoned/pygithub/pull/3.diff",
-        "url": "https://api.github.com/repos/Singletoned/pygithub/pulls/3"}]'''}
+        "url": "https://api.github.com/repos/Singletoned/pygithub/pulls/3"}]''',
+    "https://api.github.com/repos/Singletoned/pygithub/pulls/3": '''{
+        "created_at": "2011-11-01T13:21:55Z",
+        "merged": false,
+        "comments": 0,
+        "review_comments": 0,
+        "closed_at": null,
+        "title": "Test Pull Request",
+        "head": {
+          "sha": "4c121c83cf2ed51de71ef9f8606e2085e971bf86",
+          "user": {
+            "login": "Singletoned",
+            "id": 6284,
+            "url": "https://api.github.com/users/Singletoned"
+          },
+          "ref": "test",
+          "repo": {
+            "open_issues": 2,
+            "created_at": "2011-10-29T20:55:11Z",
+            "homepage": "",
+            "language": "Python",
+            "html_url": "https://github.com/Singletoned/pygithub",
+            "fork": false,
+            "private": false,
+            "ssh_url": "git@github.com:Singletoned/pygithub.git",
+            "svn_url": "https://svn.github.com/Singletoned/pygithub",
+            "master_branch": null,
+            "owner": {
+              "login": "Singletoned",
+              "id": 6284,
+              "url": "https://api.github.com/users/Singletoned"
+            },
+            "name": "pygithub",
+            "git_url": "git://github.com/Singletoned/pygithub.git",
+            "clone_url": "https://github.com/Singletoned/pygithub.git",
+            "description": "A vague attempt at a GitHub api3 library in Python",
+            "id": 2672504,
+            "url": "https://api.github.com/repos/Singletoned/pygithub"
+          },
+          "label": "Singletoned:test"
+        },
+        "patch_url": "https://github.com/Singletoned/pygithub/pull/3.patch",
+        "number": 3,
+        "mergeable": true,
+        "_links": {
+          "review_comments": {
+            "href": "https://api.github.com/repos/Singletoned/pygithub/pulls/3/comments"
+          },
+          "comments": {
+            "href": "https://api.github.com/repos/Singletoned/pygithub/issues/3/comments"
+          },
+          "html": {
+            "href": "https://github.com/Singletoned/pygithub/pull/3"
+          },
+          "self": {
+            "href": "https://api.github.com/repos/Singletoned/pygithub/pulls/3"
+          }
+        },
+        "state": "open",
+        "html_url": "https://github.com/Singletoned/pygithub/pull/3",
+        "additions": 1,
+        "user": {
+          "login": "Singletoned",
+          "id": 6284,
+          "url": "https://api.github.com/users/Singletoned"
+        },
+        "diff_url": "https://github.com/Singletoned/pygithub/pull/3.diff",
+        "merged_by": null,
+        "changed_files": 1,
+        "base": {
+          "sha": "2e46249376de6c718e98e836f9903b803f44e2b0",
+          "user": {
+            "login": "Singletoned",
+            "id": 6284,
+            "url": "https://api.github.com/users/Singletoned"
+          },
+          "ref": "master",
+          "repo": {
+            "open_issues": 2,
+            "created_at": "2011-10-29T20:55:11Z",
+            "homepage": "",
+            "language": "Python",
+            "watchers": 2,
+            "html_url": "https://github.com/Singletoned/pygithub",
+            "fork": false,
+            "private": false,
+            "ssh_url": "git@github.com:Singletoned/pygithub.git",
+            "svn_url": "https://svn.github.com/Singletoned/pygithub",
+            "master_branch": null,
+            "owner": {
+              "login": "Singletoned",
+              "id": 6284,
+              "url": "https://api.github.com/users/Singletoned"
+            },
+            "name": "pygithub",
+            "git_url": "git://github.com/Singletoned/pygithub.git",
+            "clone_url": "https://github.com/Singletoned/pygithub.git",
+            "description": "A vague attempt at a GitHub api3 library in Python",
+            "id": 2672504,
+            "url": "https://api.github.com/repos/Singletoned/pygithub"
+          },
+          "label": "Singletoned:master"
+        },
+        "updated_at": "2011-11-01T13:30:55Z",
+        "issue_url": "https://github.com/Singletoned/pygithub/issues/3",
+        "id": 452102,
+        "commits": 2,
+        "deletions": 0,
+        "merged_at": null,
+        "body": "This is a test Pull Request",
+        "url": "https://api.github.com/repos/Singletoned/pygithub/pulls/3"}'''}
 
 class MockRequest(object):
     def __init__(self, data):

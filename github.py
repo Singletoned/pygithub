@@ -85,6 +85,11 @@ class Repo(BaseModel):
         data = _get_data(url)
         return data
 
+    def get_pull(self, number):
+        url = make_url("repos", self.user.login, self.name, "pulls", number)
+        data = _get_data(url)
+        return Pull(data)
+
 
 class Issue(BaseModel):
     _keys = ['title']
@@ -95,3 +100,7 @@ class Issue(BaseModel):
         data = _get_data(url)
         user = User(data)
         return user
+
+
+class Pull(BaseModel):
+    _keys = ['title']

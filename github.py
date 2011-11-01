@@ -55,6 +55,21 @@ class UserLinkedModel(BaseModel):
         return user
 
 
+class GettableModel(BaseModel):
+    @classmethod
+    def get_all(cls, *args, **kwargs):
+        url = cls._get_all_url(*args, **kwargs)
+        data = _get_data(url)
+        repos = [cls(i) for i in data]
+        return repos
+
+    @classmethod
+    def get(cls, *args, **kwargs):
+        url = cls._get_url(*args, **kwargs)
+        data = _get_data(url)
+        return cls(data)
+
+
 class User(BaseModel):
     _keys = ['name', 'email', 'login']
 
@@ -71,7 +86,7 @@ class User(BaseModel):
         return Repo.get(self, name)
 
 
-class Repo(UserOwnedModel):
+class Repo(GettableModel, UserOwnedModel):
     _keys = ['name', 'git_url', 'html_url', 'owner']
 
     @staticmethod
@@ -81,19 +96,6 @@ class Repo(UserOwnedModel):
     @staticmethod
     def _get_url(user, name):
         return make_url("repos", user.login, name)
-
-    @classmethod
-    def get_all(cls, user):
-        url = cls._get_all_url(user)
-        data = _get_data(url)
-        repos = [cls(r) for r in data]
-        return repos
-
-    @classmethod
-    def get(cls, user, name):
-        url = cls._get_url(user, name)
-        data = _get_data(url)
-        return cls(data)
 
     @property
     def issues(self):
@@ -110,7 +112,7 @@ class Repo(UserOwnedModel):
         return Pull.get(self, number)
 
 
-class Issue(UserLinkedModel):
+class Issue(GettableModel, UserLinkedModel):
     _keys = ['title']
 
     @staticmethod
@@ -121,21 +123,8 @@ class Issue(UserLinkedModel):
     def _get_url(repo, number):
         return make_url("repos", repo.user.login, repo.name, "issues", number)
 
-    @classmethod
-    def get_all(cls, repo):
-        url = cls._get_all_url(repo)
-        data = _get_data(url)
-        issues = [cls(i) for i in data]
-        return issues
 
-    @classmethod
-    def get(cls, repo, number):
-        url = cls._get_url(repo, number)
-        data = _get_data(url)
-        return cls(data)
-
-
-class Pull(UserLinkedModel):
+class Pull(GettableModel, UserLinkedModel):
     _keys = ['title']
 
     @staticmethod
@@ -145,16 +134,3 @@ class Pull(UserLinkedModel):
     @staticmethod
     def _get_url(repo, number):
         return make_url("repos", repo.user.login, repo.name, "pulls", number)
-
-    @classmethod
-    def get_all(cls, repo):
-        url = cls._get_all_url(repo)
-        data = _get_data(url)
-        pulls = [cls(p) for p in data]
-        return pulls
-
-    @classmethod
-    def get(cls, repo, number):
-        url = cls._get_url(repo, number)
-        data = _get_data(url)
-        return cls(data)

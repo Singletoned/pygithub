@@ -33,6 +33,11 @@ class BaseModel(object):
 class User(BaseModel):
     _keys = ['name', 'email', 'login']
 
+    def __eq__(self, other):
+        if self.login == other.login:
+            return True
+        return False
+
     @property
     def repos(self):
         response = requests.get(

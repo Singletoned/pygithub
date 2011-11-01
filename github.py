@@ -74,7 +74,8 @@ class Repo(BaseModel):
             url("repos", self.user.login, self.name, "issues"))
         content = response.content
         data = json.loads(content)
-        return data
+        issues = [Issue(i) for i in data]
+        return issues
 
     def get_issue(self, number):
         response = requests.get(
